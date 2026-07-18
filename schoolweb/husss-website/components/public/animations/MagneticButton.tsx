@@ -35,7 +35,7 @@ export default function MagneticButton({
   disabled = false,
   type = "button",
 }: MagneticButtonProps) {
-  const buttonRef = useRef<HTMLElement>(null);
+  const buttonRef = useRef<HTMLButtonElement & HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
