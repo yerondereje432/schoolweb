@@ -75,7 +75,7 @@ export default function HomePageClient({
                 {/* Eyebrow - char queue */}
                 <ScrollReveal3D type="fade-up" duration={700}>
                   <TextReveal type="chars" stagger={20} delay={100} as="span" className="eyebrow text-husss-gold-400">
-                    Grade 9–12 · Haramaya University, Ethiopia
+                    Grade 9–12 · Haramaya, Ethiopia
                   </TextReveal>
                 </ScrollReveal3D>
 
@@ -163,8 +163,6 @@ export default function HomePageClient({
           </div>
         </div>
       </section>
-
-
       {/* ============================================================
            FEATURED ACCOMPLISHMENTS - Regular cards
            ============================================================ */}
@@ -174,7 +172,8 @@ export default function HomePageClient({
             <ScrollReveal3D type="slide-up-3d">
               <div className="flex items-end justify-between mb-12">
                 <div>
-                  <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Featured Achievements</h2>
+                  <TextReveal type="chars" stagger={20} as="p" className="eyebrow mb-2">Recognition</TextReveal>
+                  <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Featured Accomplishments</h2>
                 </div>
                 <Link href="/accomplishments" className="text-sm text-husss-green-700 hover:text-husss-green-900 flex items-center gap-1 shrink-0">
                   View all <ArrowRight size={14} />
@@ -218,6 +217,7 @@ export default function HomePageClient({
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-end justify-between mb-12">
                   <div>
+                    <TextReveal type="chars" stagger={20} as="p" className="eyebrow mb-2">Bulletin</TextReveal>
                     <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Latest News</h2>
                   </div>
                   <Link href="/news" className="text-sm text-husss-green-700 hover:text-husss-green-900 flex items-center gap-1 shrink-0">
@@ -276,7 +276,7 @@ export default function HomePageClient({
 
           <ScrollReveal3D type="fade-up" delay={200}>
             <TextReveal type="words" stagger={30} as="p" className="text-muted max-w-2xl mx-auto mb-10 leading-relaxed text-lg">
-              Discover our mission, academic programs, and the achievements that make HUSNBSS one of the leading secondary schools in the region.
+              Discover our mission, academic programs, and the achievements that make HUSSS one of the leading secondary schools in the region.
             </TextReveal>
           </ScrollReveal3D>
 
