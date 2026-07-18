@@ -75,7 +75,7 @@ export default function HomePageClient({
                 {/* Eyebrow - char queue */}
                 <ScrollReveal3D type="fade-up" duration={700}>
                   <TextReveal type="chars" stagger={20} delay={100} as="span" className="eyebrow text-husss-gold-400">
-                    Grade 9–12 · Haramaya, Ethiopia
+                    Grade 9–12 · Haramaya University, Ethiopia
                   </TextReveal>
                 </ScrollReveal3D>
 
@@ -95,23 +95,31 @@ export default function HomePageClient({
                   </TextReveal>
                 </ScrollReveal3D>
 
-                {/* CTA Buttons - REGULAR, no magnetic */}
+                {/* CTA Buttons - PREMIUM GOLD */}
                 <ScrollReveal3D type="fade-up" duration={800} delay={400}>
                   <div className="mt-10 flex flex-wrap gap-4">
+                    {/* Primary: Gold gradient with glow */}
                     <Link
                       href={hero?.cta_link || "/about"}
-                      className="inline-flex items-center gap-2 bg-husss-gold-500 text-husss-green-950 font-semibold px-6 py-3 rounded-full hover:bg-husss-gold-400 transition-colors group"
+                      className="relative inline-flex items-center gap-2 group"
                     >
-                      {hero?.cta_text_en || "Explore HUSSS"}
-                      <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                      <span className="absolute inset-0 bg-gradient-to-r from-husss-gold-500 via-husss-gold-400 to-husss-gold-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg -inset-1" />
+                      <span className="relative bg-gradient-to-r from-husss-gold-500 via-husss-gold-400 to-husss-gold-500 text-husss-green-950 font-semibold px-8 py-4 rounded-full hover:from-husss-gold-400 hover:via-husss-gold-300 hover:to-husss-gold-400 transition-all duration-300 shadow-lg shadow-husss-gold-500/30 hover:shadow-xl hover:shadow-husss-gold-500/50">
+                        {hero?.cta_text_en || "Explore HUSSS"}
+                        <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                      </span>
                     </Link>
 
+                    {/* Secondary: Gold outline with fill on hover */}
                     <Link
                       href="/academics"
-                      className="inline-flex items-center gap-2 border-2 border-husss-gold-500 text-husss-gold-400 font-semibold px-6 py-3 rounded-full hover:bg-husss-gold-500/10 transition-colors"
+                      className="relative inline-flex items-center gap-2 overflow-hidden group"
                     >
-                      <GraduationCap size={18} className="mr-2" />
-                      View Academics
+                      <span className="absolute inset-0 bg-gradient-to-r from-husss-gold-500 to-husss-gold-400 transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
+                      <span className="relative border-2 border-husss-gold-500 text-husss-gold-400 font-semibold px-8 py-4 rounded-full hover:text-husss-green-950 transition-colors duration-300 group-hover:shadow-lg group-hover:shadow-husss-gold-500/30">
+                        <GraduationCap size={18} className="mr-2" />
+                        View Academics
+                      </span>
                     </Link>
                   </div>
                 </ScrollReveal3D>
@@ -119,13 +127,13 @@ export default function HomePageClient({
                 {/* Scroll indicator */}
                 <ScrollReveal3D type="fade-up" duration={600} delay={800}>
                   <div className="mt-16 flex items-center gap-3 text-white/40">
-                    <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-12 h-12 rounded-full border border-husss-gold-500/30 flex items-center justify-center bg-husss-gold-500/10">
+                      <svg className="w-5 h-5 text-husss-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-widest font-medium">Scroll to discover</p>
+                      <p className="text-xs uppercase tracking-widest font-medium text-husss-gold-300">Scroll to discover</p>
                     </div>
                   </div>
                 </ScrollReveal3D>
@@ -156,41 +164,6 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* ============================================================
-           QUICK HIGHLIGHTS - Regular cards, no magnetic, no parallax
-           ============================================================ */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 z-10">
-        <StaggeredReveal staggerDelay={120}>
-          {[
-            { icon: GraduationCap, label: "Grades Offered", value: "9–12", suffix: "" },
-            { icon: Trophy, label: "EUEE Track Record", value: "Top", suffix: " Performing" },
-            { icon: Star, label: "Top Students", value: topStudents?.length || 0, suffix: "+ Recognized" },
-            { icon: Newspaper, label: "Latest Updates", value: "Always", suffix: " Current" },
-          ].map((item, index) => (
-            <ScrollReveal3D key={item.label} type="slide-up-3d" delay={index * 80}>
-              <div className="card-hairline p-6 text-center h-full">
-                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-husss-green-100 to-husss-gold-100 flex items-center justify-center">
-                  <item.icon className="text-husss-green-600" size={24} />
-                </div>
-                <TextReveal type="chars" stagger={30} as="p" className="font-display text-husss-green-950">
-                  {typeof item.value === "number" ? (
-                    <>
-                      <AnimatedCounter value={item.value} duration={1500} delay={300} className="text-3xl md:text-4xl font-bold" />
-                      <span className="text-husss-gold-500">{item.suffix}</span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="text-3xl md:text-4xl font-bold text-husss-green-950">{item.value}</span>
-                      <span className="text-husss-gold-500">{item.suffix}</span>
-                    </>
-                  )}
-                </TextReveal>
-                <p className="text-xs text-muted mt-2 uppercase tracking-wide font-medium">{item.label}</p>
-              </div>
-            </ScrollReveal3D>
-          ))}
-        </StaggeredReveal>
-      </section>
 
       {/* ============================================================
            FEATURED ACCOMPLISHMENTS - Regular cards
@@ -201,8 +174,7 @@ export default function HomePageClient({
             <ScrollReveal3D type="slide-up-3d">
               <div className="flex items-end justify-between mb-12">
                 <div>
-                  <TextReveal type="chars" stagger={20} as="p" className="eyebrow mb-2">Recognition</TextReveal>
-                  <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Featured Accomplishments</h2>
+                  <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Featured Achievements</h2>
                 </div>
                 <Link href="/accomplishments" className="text-sm text-husss-green-700 hover:text-husss-green-900 flex items-center gap-1 shrink-0">
                   View all <ArrowRight size={14} />
@@ -214,7 +186,7 @@ export default function HomePageClient({
               {featuredAccomplishments.map((item, i) => (
                 <ScrollReveal3D key={item.id} type="slide-up-3d" delay={i * 100}>
                   <Link href="/accomplishments" className="block">
-                    <div className="card-hairline overflow-hidden h-full transition-shadow hover:shadow-lg">
+                    <div className="card-hairline overflow-hidden h-full transition-shadow hover:shadow-lg hover:border-husss-gold-300 border-husss-green-100">
                       <div className="aspect-video bg-husss-green-50 relative overflow-hidden">
                         {item.image_url && <img src={item.image_url} alt="" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />}
                         <div className="absolute inset-0 bg-gradient-to-t from-husss-green-950/70 via-transparent to-transparent" />
@@ -246,7 +218,6 @@ export default function HomePageClient({
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-end justify-between mb-12">
                   <div>
-                    <TextReveal type="chars" stagger={20} as="p" className="eyebrow mb-2">Bulletin</TextReveal>
                     <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Latest News</h2>
                   </div>
                   <Link href="/news" className="text-sm text-husss-green-700 hover:text-husss-green-900 flex items-center gap-1 shrink-0">
@@ -258,7 +229,7 @@ export default function HomePageClient({
                   {latestNews.map((post, i) => (
                     <ScrollReveal3D key={post.id} type="slide-up-3d" delay={i * 100}>
                       <Link href={`/news/${post.slug}`} className="block">
-                        <div className="card-hairline overflow-hidden h-full bg-white transition-shadow hover:shadow-lg">
+                        <div className="card-hairline overflow-hidden h-full bg-white transition-shadow hover:shadow-lg hover:border-husss-gold-300 border-husss-green-100">
                           <div className="aspect-video bg-gray-100 relative overflow-hidden">
                             {post.cover_image_url && <img src={post.cover_image_url} alt="" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />}
                             <div className="absolute inset-0 bg-gradient-to-t from-husss-green-950/60 via-transparent to-transparent" />
@@ -290,9 +261,12 @@ export default function HomePageClient({
       )}
 
       {/* ============================================================
-           CTA SECTION - Clean, regular buttons
+           CTA SECTION - PREMIUM GOLD BUTTONS
            ============================================================ */}
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 text-center">
+        {/* Gold accent line */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-husss-gold-500 to-transparent" />
+        
         <StaggeredReveal staggerDelay={120}>
           <ScrollReveal3D type="slide-up-3d">
             <TextReveal type="words" stagger={40} as="h2" className="text-2xl md:text-3xl lg:text-4xl text-husss-green-950 mb-4">
@@ -302,26 +276,34 @@ export default function HomePageClient({
 
           <ScrollReveal3D type="fade-up" delay={200}>
             <TextReveal type="words" stagger={30} as="p" className="text-muted max-w-2xl mx-auto mb-10 leading-relaxed text-lg">
-              Discover our mission, academic programs, and the achievements that make HUSSS one of the leading secondary schools in the region.
+              Discover our mission, academic programs, and the achievements that make HUSNBSS one of the leading secondary schools in the region.
             </TextReveal>
           </ScrollReveal3D>
 
           <ScrollReveal3D type="fade-up" delay={300}>
             <div className="flex gap-4 justify-center flex-wrap">
+              {/* About Us - Gold gradient fill */}
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 bg-husss-green-800 text-white font-semibold px-6 py-3 rounded-full hover:bg-husss-green-900 transition-colors group"
+                className="relative inline-flex items-center gap-2 group overflow-hidden"
               >
-                <TextReveal type="chars" stagger={20} as="span" className="text-husss-green-950">About Us</TextReveal>
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                <span className="absolute inset-0 bg-gradient-to-r from-husss-gold-500 via-husss-gold-400 to-husss-gold-500 transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
+                <span className="relative border-2 border-husss-gold-500 text-husss-gold-400 font-semibold px-8 py-4 rounded-full hover:text-husss-green-950 transition-colors duration-300 group-hover:shadow-lg group-hover:shadow-husss-gold-500/30">
+                  <TextReveal type="chars" stagger={20} as="span" className="text-husss-gold-400">About Us</TextReveal>
+                  <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
 
+              {/* Contact Us - Gold gradient fill */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 border-2 border-husss-green-800/25 text-husss-green-800 font-semibold px-6 py-3 rounded-full hover:bg-husss-green-50 transition-colors"
+                className="relative inline-flex items-center gap-2 group overflow-hidden"
               >
-                <Mail size={18} className="mr-2" />
-                Contact Us
+                <span className="absolute inset-0 bg-gradient-to-r from-husss-green-800 via-husss-green-700 to-husss-gold-500 transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300" />
+                <span className="relative border-2 border-husss-green-800 text-husss-green-800 font-semibold px-8 py-4 rounded-full hover:text-white transition-colors duration-300 group-hover:shadow-lg group-hover:shadow-husss-green-800/30">
+                  <Mail size={18} className="mr-2 text-husss-gold-400" />
+                  Contact Us
+                </span>
               </Link>
             </div>
           </ScrollReveal3D>
