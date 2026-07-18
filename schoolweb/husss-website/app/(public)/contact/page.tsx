@@ -1,11 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import PageHero from "@/components/public/page-hero";
 import ContactForm from "@/components/public/contact-form";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import ScrollReveal3D, { StaggeredReveal } from "@/components/public/animations/ScrollReveal3D";
 import ParallaxCard from "@/components/public/animations/ParallaxCard";
 import FloatingParticles, { GreenGeometric } from "@/components/public/animations/FloatingParticles";
-import MagneticButton from "@/components/public/animations/MagneticButton";
+import ContactQuickActions from "@/components/public/contact-quick-actions";
 import ThreeDBackground from "@/components/public/animations/ThreeDBackground";
 
 export default async function ContactPage() {
@@ -131,24 +131,7 @@ export default async function ContactPage() {
 
           {/* Quick actions */}
           <ScrollReveal3D type="fade-up" delay={200}>
-            <div className="mt-8 grid grid-cols-2 gap-4">
-              <MagneticButton
-                variant="outline"
-                size="md"
-                className="w-full"
-                onClick={() => window.open("tel:" + (contact?.phone_primary || ""), "_self")}
-              >
-                <Phone size={18} /> Call Now
-              </MagneticButton>
-              <MagneticButton
-                variant="primary"
-                size="md"
-                className="w-full"
-                onClick={() => window.open("mailto:" + (contact?.email_primary || ""), "_self")}
-              >
-                <Mail size={18} /> Email Us
-              </MagneticButton>
-            </div>
+            <ContactQuickActions phone={contact?.phone_primary} email={contact?.email_primary} />
           </ScrollReveal3D>
         </div>
       </div>
