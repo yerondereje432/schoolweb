@@ -1,0 +1,598 @@
+@import "tailwindcss";
+
+:root {
+  /* Derived from the HUSSS logo: deep green, gold sunburst, white.
+     Warmed into an institutional "paper + seal" palette rather than
+     stark white + flat brand colors. */
+  --color-husss-green-950: #0d3818;
+  --color-husss-green-900: #123f1f;
+  --color-husss-green-800: #175226;
+  --color-husss-green-700: #1a642e;
+  --color-husss-green-600: #1e7b34;
+  --color-husss-green-500: #269443;
+  --color-husss-green-100: #e3f2e7;
+  --color-husss-green-50: #f5faf6;
+
+  --color-husss-gold-700: #b97e00;
+  --color-husss-gold-600: #d99400;
+  --color-husss-gold-500: #f5a800;
+  --color-husss-gold-400: #ffc233;
+  --color-husss-gold-100: #fff3d6;
+
+  /* Warm ivory paper, not stark white — reads institutional, not app-like */
+  --background: #fbf7ef;
+  --surface: #ffffff;
+  --foreground: #16231a;
+  --muted: #5b6660;
+  --hairline: #e7e0d0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-hairline: var(--hairline);
+
+  --color-husss-green-950: var(--color-husss-green-950);
+  --color-husss-green-900: var(--color-husss-green-900);
+  --color-husss-green-800: var(--color-husss-green-800);
+  --color-husss-green-700: var(--color-husss-green-700);
+  --color-husss-green-600: var(--color-husss-green-600);
+  --color-husss-green-500: var(--color-husss-green-500);
+  --color-husss-green-100: var(--color-husss-green-100);
+  --color-husss-green-50: var(--color-husss-green-50);
+
+  --color-husss-gold-700: var(--color-husss-gold-700);
+  --color-husss-gold-600: var(--color-husss-gold-600);
+  --color-husss-gold-500: var(--color-husss-gold-500);
+  --color-husss-gold-400: var(--color-husss-gold-400);
+  --color-husss-gold-100: var(--color-husss-gold-100);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
+  --font-amharic: var(--font-noto-ethiopic);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, sans-serif;
+}
+
+h1, h2, h3,
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Afaan Oromo uses Latin script (Qubee) so Inter covers it fine.
+   Only Amharic needs the Ge'ez script font. Headings stay serif-display
+   even in Amharic; Noto Ethiopic only applies to body-level text there. */
+[lang="am"] p,
+[lang="am"] span,
+[lang="am"] li,
+[lang="am"] a {
+  font-family: var(--font-amharic), sans-serif;
+}
+
+::selection {
+  background: var(--color-husss-gold-400);
+  color: var(--color-husss-green-950);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-husss-gold-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.gold-underline {
+  position: relative;
+}
+.gold-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  height: 3px;
+  width: 44px;
+  background: var(--color-husss-gold-500);
+  border-radius: 2px;
+}
+
+/* Eyebrow label: small caps tracking, used above section headings
+   to name the section the way a program or bulletin would. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-husss-gold-700);
+}
+
+/* Hairline card: replaces heavy drop-shadows with a 1px institutional
+   border, lifting only on hover/focus for a quieter, paper-like feel. */
+.card-hairline {
+  background: var(--color-surface);
+  border: 1px solid var(--hairline);
+  border-radius: 0.75rem;
+  transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+.card-hairline:hover {
+  border-color: var(--color-husss-green-200, var(--color-husss-green-100));
+  box-shadow: 0 12px 32px -16px rgba(13, 56, 24, 0.22);
+  transform: translateY(-2px);
+}
+
+/* Seal/sunburst emblem — the signature element. A gold radial burst
+   behind the hero's flagship stat, echoing a diploma seal. */
+.seal-burst {
+  background: repeating-conic-gradient(
+    from 0deg,
+    var(--color-husss-gold-500) 0deg 4deg,
+    transparent 4deg 18deg
+  );
+  border-radius: 9999px;
+}
+
+/* 3D tilting badge, shared by every interior page hero (page-hero.tsx).
+   .tilt-stage supplies the perspective; .tilt-badge is the object that
+   rotates in response to the cursor; .tilt-badge-edge fakes true depth
+   by rendering a darker "rim" beneath the front face. */
+.tilt-stage {
+  width: 96px;
+  height: 96px;
+  perspective: 600px;
+}
+.tilt-badge {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tilt-badge-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 32% 28%, var(--color-husss-green-700), var(--color-husss-green-950) 72%);
+  border: 1px solid rgba(245, 168, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 34px -14px rgba(0, 0, 0, 0.55);
+  transform: translateZ(14px);
+}
+.tilt-badge-ring {
+  position: absolute;
+  inset: 8px;
+  border-radius: 9999px;
+  border: 1px dashed rgba(245, 168, 0, 0.5);
+}
+.tilt-badge-icon {
+  position: relative;
+  color: var(--color-husss-gold-400);
+  display: flex;
+}
+.tilt-badge-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--color-husss-gold-700);
+  transform: translateZ(0px);
+}
+
+@media (hover: none) {
+  .tilt-badge {
+    transform: rotateY(-8deg) rotateX(6deg) translateZ(6px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-badge {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+/* Loading screen — rotating gold ring + pulsing seal core, used by
+   loading.tsx. Pure CSS, no JS, so it paints instantly on first byte. */
+@keyframes loading-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes loading-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+@keyframes loading-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.85; }
+}
+@keyframes loading-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.loading-ring-outer {
+  animation: loading-spin 2.4s linear infinite;
+}
+.loading-ring-inner {
+  animation: loading-spin-reverse 1.8s linear infinite;
+}
+.loading-core {
+  animation: loading-pulse 1.6s ease-in-out infinite;
+}
+.loading-label {
+  animation: loading-fade-up 600ms ease-out 200ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-ring-outer,
+  .loading-ring-inner,
+  .loading-core,
+  .loading-label {
+    animation: none;
+  }
+}
+
+/* Scroll reveal, paired with the Reveal client component.
+   Respects prefers-reduced-motion below. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .card-hairline {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   PREMIUM 3D ANIMATION UTILITIES
+   ============================================================ */
+
+/* Perspective containers for 3D transforms */
+.perspective-500 { perspective: 500px; }
+.perspective-1000 { perspective: 1000px; }
+.perspective-2000 { perspective: 2000px; }
+
+/* Transform style preservation */
+.transform-style-3d { transform-style: preserve-3d; }
+.transform-style-flat { transform-style: flat; }
+
+/* Backface visibility */
+.backface-hidden { backface-visibility: hidden; }
+.backface-visible { backface-visibility: visible; }
+
+/* 3D Keyframe Animations */
+@keyframes float-3d {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); }
+  25% { transform: translate3d(10px, -15px, 20px) rotateX(5deg) rotateY(-5deg); }
+  50% { transform: translate3d(-10px, -10px, -10px) rotateX(-3deg) rotateY(3deg); }
+  75% { transform: translate3d(5px, 5px, 15px) rotateX(2deg) rotateY(-2deg); }
+}
+
+@keyframes rotate-y-slow {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes rotate-x-slow {
+  from { transform: rotateX(0deg); }
+  to { transform: rotateX(360deg); }
+}
+
+@keyframes pulse-scale-3d {
+  0%, 100% { transform: scale3d(1, 1, 1); }
+  50% { transform: scale3d(1.05, 1.05, 1.1); }
+}
+
+@keyframes slide-in-3d {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(20deg) translateY(40px) translateZ(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0) translateY(0) translateZ(0);
+  }
+}
+
+@keyframes slide-out-3d {
+  from {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0) translateY(0) translateZ(0);
+  }
+  to {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(-20deg) translateY(-40px) translateZ(100px);
+  }
+}
+
+@keyframes flip-in-x {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0);
+  }
+}
+
+@keyframes flip-in-y {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0);
+  }
+}
+
+@keyframes fold-in {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(-180deg) scale(0.8);
+    transform-origin: center bottom;
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0) scale(1);
+    transform-origin: center bottom;
+  }
+}
+
+@keyframes unfold {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(180deg) scale(0.8);
+    transform-origin: center center;
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0) scale(1);
+    transform-origin: center center;
+  }
+}
+
+@keyframes shimmer-3d {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+@keyframes morph-blob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+  75% { border-radius: 60% 40% 60% 30% / 60% 40% 60% 70%; }
+}
+
+/* Animation utility classes */
+.animate-float-3d { animation: float-3d 8s ease-in-out infinite; }
+.animate-rotate-y-slow { animation: rotate-y-slow 20s linear infinite; }
+.animate-rotate-x-slow { animation: rotate-x-slow 25s linear infinite; }
+.animate-pulse-scale-3d { animation: pulse-scale-3d 3s ease-in-out infinite; }
+.animate-slide-in-3d { animation: slide-in-3d 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-flip-in-x { animation: flip-in-x 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-flip-in-y { animation: flip-in-y 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fold-in { animation: fold-in 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-unfold { animation: unfold 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-shimmer-3d { animation: shimmer-3d 3s linear infinite; }
+.animate-orbit { animation: orbit 30s linear infinite; }
+.animate-morph-blob { animation: morph-blob 12s ease-in-out infinite; }
+
+/* Stagger delays */
+.delay-1 { animation-delay: 100ms; }
+.delay-2 { animation-delay: 200ms; }
+.delay-3 { animation-delay: 300ms; }
+.delay-4 { animation-delay: 400ms; }
+.delay-5 { animation-delay: 500ms; }
+.delay-6 { animation-delay: 600ms; }
+.delay-7 { animation-delay: 700ms; }
+.delay-8 { animation-delay: 800ms; }
+
+/* 3D Card hover effects */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-3d:hover {
+  transform: perspective(1000px) rotateX(-2deg) rotateY(2deg) translateY(-8px) translateZ(20px);
+  box-shadow:
+    0 25px 50px -12px rgba(13, 56, 24, 0.25),
+    0 0 0 1px rgba(245, 168, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Magnetic attraction effect container */
+.magnetic-container {
+  perspective: 1000px;
+}
+.magnetic-element {
+  transform-style: preserve-3d;
+  transition: transform 200ms ease-out;
+}
+
+/* Gradient text with 3D shimmer */
+.text-gradient-3d {
+  background: linear-gradient(
+    90deg,
+    var(--color-husss-green-950) 0%,
+    var(--color-husss-gold-500) 50%,
+    var(--color-husss-green-950) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-3d 4s linear infinite;
+}
+
+/* Glowing border with 3D depth */
+.glow-border-3d {
+  position: relative;
+  border-radius: 1rem;
+}
+.glow-border-3d::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 1rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-husss-gold-500) 0%,
+    var(--color-husss-green-600) 50%,
+    var(--color-husss-gold-500) 100%
+  );
+  background-size: 200% 200%;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 300ms ease;
+  z-index: -1;
+  animation: shimmer-3d 4s linear infinite;
+}
+.glow-border-3d:hover::before {
+  opacity: 0.5;
+}
+
+/* Floating label with 3D perspective */
+.label-3d {
+  display: inline-block;
+  transform-style: preserve-3d;
+  perspective: 500px;
+}
+.label-3d span {
+  transform: translateZ(20px);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.label-3d:hover span {
+  transform: translateZ(40px) scale(1.05);
+}
+
+/* Page transition overlay */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-husss-green-950);
+  transform-origin: bottom;
+  transform: scaleY(0);
+  z-index: 9999;
+  pointer-events: none;
+}
+.page-transition-overlay.active {
+  animation: page-transition-in 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.page-transition-overlay.leaving {
+  animation: page-transition-out 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top;
+}
+
+@keyframes page-transition-in {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes page-transition-out {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0); }
+}
+
+/* Scroll indicator 3D bounce */
+.scroll-indicator-3d {
+  animation: scroll-bounce-3d 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce-3d {
+  0%, 20%, 50%, 80%, 100% {
+    transform: perspective(500px) translateY(0) rotateX(0);
+  }
+  40% {
+    transform: perspective(500px) translateY(-10px) rotateX(-10deg);
+  }
+  60% {
+    transform: perspective(500px) translateY(-5px) rotateX(-5deg);
+  }
+}
+
+/* 3D Progress ring */
+.progress-ring-3d {
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+.progress-ring-3d circle {
+  transition: stroke-dashoffset 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Holographic shine effect */
+.holographic-shine {
+  position: relative;
+  overflow: hidden;
+}
+.holographic-shine::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%) rotate(-15deg);
+  animation: holographic-sweep 3s ease-in-out infinite;
+}
+
+@keyframes holographic-sweep {
+  0% { transform: translateX(-100%) rotate(-15deg); }
+  100% { transform: translateX(200%) rotate(-15deg); }
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-3d,
+  .animate-rotate-y-slow,
+  .animate-rotate-x-slow,
+  .animate-pulse-scale-3d,
+  .animate-slide-in-3d,
+  .animate-flip-in-x,
+  .animate-flip-in-y,
+  .animate-fold-in,
+  .animate-unfold,
+  .animate-shimmer-3d,
+  .animate-orbit,
+  .animate-morph-blob,
+  .scroll-indicator-3d,
+  .holographic-shine::after {
+    animation: none !important;
+  }
+  .card-3d:hover {
+    transform: none !important;
+  }
+  .glow-border-3d::before {
+    animation: none !important;
+  }
+  .text-gradient-3d {
+    animation: none !important;
+  }
+}
