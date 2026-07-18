@@ -51,16 +51,12 @@ export default function MagneticButton({
   };
 
   const handleMouseLeave = () => {
+    setIsHovered(false);
     setMousePos({ x: 0, y: 0 });
   };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-  };
-
-  const handleMouseLeaveContainer = () => {
-    setIsHovered(false);
-    setMousePos({ x: 0, y: 0 });
   };
 
   const baseStyles = {
@@ -129,7 +125,6 @@ export default function MagneticButton({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
-      onMouseLeaveCapture={handleMouseLeaveContainer}
       disabled={disabled && !href}
       className={className}
       style={computedStyle}
