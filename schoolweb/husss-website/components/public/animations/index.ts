@@ -5,3 +5,6 @@ export { default as ScrollReveal3D } from "./ScrollReveal3D";
 export { StaggeredReveal } from "./ScrollReveal3D";
 export { default as FloatingParticles, GoldenDust, GreenGeometric } from "./FloatingParticles";
 export { default as MagneticButton } from "./MagneticButton";
+export { default as CursorGlow } from "./CursorGlow";
+export { default as MagneticElement } from "./MagneticElement";
+export { default as TextReveal, GradientText } from "./TextReveal";
