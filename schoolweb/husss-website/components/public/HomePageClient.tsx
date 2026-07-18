@@ -7,6 +7,7 @@ import {
   StaggeredReveal,
   AnimatedCounter,
   TextReveal,
+  GoldenDust,
 } from "@/components/public/animations";
 
 interface HomePageClientProps {
@@ -48,6 +49,9 @@ export default function HomePageClient({
 
   return (
     <div className="relative">
+      {/* Golden dust particles */}
+      <GoldenDust count={20} className="opacity-20" />
+
       {/* ============================================================
            HERO SECTION - Clean, no 3D background
            ============================================================ */}
