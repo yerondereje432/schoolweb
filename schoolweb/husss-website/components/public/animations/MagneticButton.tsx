@@ -17,10 +17,6 @@ interface MagneticButtonProps {
   type?: "button" | "submit" | "reset";
 }
 
-/**
- * Premium magnetic button with 3D attraction effect.
- * Button follows cursor magnetically within its bounds.
- */
 export default function MagneticButton({
   children,
   className = "",
@@ -131,7 +127,6 @@ export default function MagneticButton({
       aria-disabled={disabled}
     >
       {children}
-      {/* Ripple effect */}
       <span
         className="absolute inset-0 rounded-full overflow-hidden pointer-events-none"
         style={{
