@@ -179,6 +179,7 @@ export default function ThreeDBackground({
 
     // Mouse move handler
     function onMouseMove(event: MouseEvent) {
+      if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       mouseRef.current.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       mouseRef.current.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -239,6 +240,7 @@ export default function ThreeDBackground({
 
     // Handle resize
     function onResize() {
+      if (!canvas) return;
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
       renderer.setSize(width, height);
