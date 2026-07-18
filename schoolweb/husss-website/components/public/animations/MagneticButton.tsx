@@ -122,7 +122,7 @@ export default function MagneticButton({
 
   return (
     <Element
-      ref={buttonRef}
+      ref={buttonRef as unknown as React.Ref<HTMLButtonElement & HTMLAnchorElement>}
       href={href}
       type={href ? undefined : type}
       onClick={disabled ? undefined : onClick}
