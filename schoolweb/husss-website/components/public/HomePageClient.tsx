@@ -256,4 +256,75 @@ export default function HomePageClient({
                       <Link href={`/news/${post.slug}`} className="block">
                         <div className="card-hairline overflow-hidden h-full bg-white transition-shadow hover:shadow-lg">
                           <div className="aspect-video bg-gray-100 relative overflow-hidden">
-                            {post.cover_image_url && <img src={post.cover_image_url} alt="" 
+                            {post.cover_image_url && <img src={post.cover_image_url} alt="" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />}
+                            <div className="absolute inset-0 bg-gradient-to-t from-husss-green-950/60 via-transparent to-transparent" />
+                          </div>
+                          <div className="p-6">
+                            <div className="flex items-center gap-2 text-xs text-white/70 mb-3">
+                              <span>{post.published_at ? new Date(post.published_at).toLocaleDateString() : ""}</span>
+                              {post.news_categories && (
+                                <>
+                                  <span>·</span>
+                                  <span className="text-husss-gold-400 font-medium px-2 py-0.5 bg-husss-green-950/80 backdrop-blur-sm rounded-full">
+                                    {(post.news_categories as { name_en: string }).name_en}
+                                  </span>
+                                </>
+                              )}
+                            </div>
+                            <p className="font-semibold text-husss-green-950 leading-snug text-lg">{post.title_en}</p>
+                            {post.excerpt_en && <p className="text-sm text-white/60 mt-3 line-clamp-2 leading-relaxed">{post.excerpt_en}</p>}
+                          </div>
+                        </div>
+                      </Link>
+                    </ScrollReveal3D>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal3D>
+          </StaggeredReveal>
+        </section>
+      )}
+
+      {/* ============================================================
+           CTA SECTION - Clean, regular buttons
+           ============================================================ */}
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 text-center">
+        <StaggeredReveal staggerDelay={120}>
+          <ScrollReveal3D type="slide-up-3d">
+            <TextReveal type="words" stagger={40} as="h2" className="text-2xl md:text-3xl lg:text-4xl text-husss-green-950 mb-4">
+              Learn more about HUSSS
+            </TextReveal>
+          </ScrollReveal3D>
+
+          <ScrollReveal3D type="fade-up" delay={200}>
+            <TextReveal type="words" stagger={30} as="p" className="text-muted max-w-2xl mx-auto mb-10 leading-relaxed text-lg">
+              Discover our mission, academic programs, and the achievements that make HUSSS one of the leading secondary schools in the region.
+            </TextReveal>
+          </ScrollReveal3D>
+
+          <ScrollReveal3D type="fade-up" delay={300}>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 bg-husss-green-800 text-white font-semibold px-6 py-3 rounded-full hover:bg-husss-green-900 transition-colors group"
+              >
+                <TextReveal type="chars" stagger={20} as="span" className="text-husss-green-950">About Us</TextReveal>
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 border-2 border-husss-green-800/25 text-husss-green-800 font-semibold px-6 py-3 rounded-full hover:bg-husss-green-50 transition-colors"
+              >
+                <Mail size={18} className="mr-2" />
+                Contact Us
+              </Link>
+            </div>
+          </ScrollReveal3D>
+        </StaggeredReveal>
+      </section>
+
+      <div className="relative h-4 bg-gradient-to-r from-transparent via-husss-gold-500/30 to-transparent" />
+    </div>
+  );
+}
