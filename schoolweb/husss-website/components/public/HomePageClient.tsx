@@ -173,7 +173,7 @@ export default function HomePageClient({
               <div className="flex items-end justify-between mb-12">
                 <div>
                   <TextReveal type="chars" stagger={20} as="p" className="eyebrow mb-2">Recognition</TextReveal>
-                  <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Featured Accomplishments</h2>
+                  <h2 className="text-2xl md:text-3xl text-husss-green-950 gold-underline inline-block">Featured Achievements</h2>
                 </div>
                 <Link href="/accomplishments" className="text-sm text-husss-green-700 hover:text-husss-green-900 flex items-center gap-1 shrink-0">
                   View all <ArrowRight size={14} />
@@ -270,13 +270,13 @@ export default function HomePageClient({
         <StaggeredReveal staggerDelay={120}>
           <ScrollReveal3D type="slide-up-3d">
             <TextReveal type="words" stagger={40} as="h2" className="text-2xl md:text-3xl lg:text-4xl text-husss-green-950 mb-4">
-              Learn more about HUSSS
+              Learn more about HUSNBSS
             </TextReveal>
           </ScrollReveal3D>
 
           <ScrollReveal3D type="fade-up" delay={200}>
             <TextReveal type="words" stagger={30} as="p" className="text-muted max-w-2xl mx-auto mb-10 leading-relaxed text-lg">
-              Discover our mission, academic programs, and the achievements that make HUSSS one of the leading secondary schools in the region.
+              Discover our mission, academic programs, and the achievements that make HUSNBSS one of the leading secondary schools in the region.
             </TextReveal>
           </ScrollReveal3D>
 
