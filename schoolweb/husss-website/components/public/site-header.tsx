@@ -9,7 +9,7 @@ const CORE_NAV = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
   { href: "/academics", label: "Academics" },
-  { href: "/achievements", label: "Achievements" },
+  { href: "/accomplishments", label: "Achievements" },
   { href: "/news", label: "News" },
   { href: "/gallery", label: "Gallery" },
   { href: "/staff", label: "Staff" },
