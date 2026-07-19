@@ -75,7 +75,7 @@ export default function HomePageClient({
                 {/* Eyebrow - char queue */}
                 <ScrollReveal3D type="fade-up" duration={700}>
                   <TextReveal type="chars" stagger={20} delay={100} as="span" className="eyebrow text-husss-gold-400">
-                    Grade 9–12 · Haramaya, Ethiopia
+                    Grade 9–12 · Haramaya University, Ethiopia
                   </TextReveal>
                 </ScrollReveal3D>
 
@@ -91,7 +91,7 @@ export default function HomePageClient({
                 {/* Subtitle - word queue */}
                 <ScrollReveal3D type="fade-up" duration={700} delay={300}>
                   <TextReveal type="words" stagger={30} delay={100} as="p" className="text-white/65 mt-6 max-w-xl text-lg leading-relaxed">
-                    {hero?.subtitle_en || "One of the most accomplished secondary schools in the region — known for outstanding results in the Ethiopian University Entrance Examination."}
+                    {hero?.subtitle_en || "One of the most accomplished secondary schools in the region, known for outstanding results in the Ethiopian University Entrance Examination."}
                   </TextReveal>
                 </ScrollReveal3D>
 
