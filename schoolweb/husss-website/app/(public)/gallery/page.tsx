@@ -21,7 +21,7 @@ export default async function GalleryPage() {
         icon={<Images size={28} />}
         eyebrow="Student Life"
         title="Student Life & Gallery"
-        subtitle="A look at life at HUSSS — classrooms, exams, ceremonies, and more."
+        subtitle="Discover life at HUSNBSS through classrooms, examinations, ceremonies, and everyday moments."
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 relative z-10">
