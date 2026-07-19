@@ -8,7 +8,6 @@ import AnimatedCounter from "@/components/public/animations/AnimatedCounter";
 
 const STREAM_LABELS: Record<string, string> = {
   natural_science: "Natural Science",
-  social_science: "Social Science",
 };
 
 export default async function AcademicsPage() {
@@ -40,17 +39,17 @@ export default async function AcademicsPage() {
         icon={<GraduationCap size={30} />}
         eyebrow="Curriculum"
         title="Academics"
-        subtitle="HUSSS serves Grades 9 through 12, following the Ethiopian national curriculum with Natural Science and Social Science streams in Grades 11–12."
+        subtitle="HUSNBSS serves Grades 9 through 12, following the Ethiopian national curriculum with Natural Science stream in Grades 11–12."
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 relative z-10">
         {/* Stats header */}
         <ScrollReveal3D type="fade-up">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            <AnimatedCounter value={totalPrograms} suffix="" duration={1500} className="text-center" />
+            <AnimatedCounter value={1} suffix="" duration={1500} className="text-center" />
             <AnimatedCounter value={4} suffix="" prefix="" duration={1800} className="text-center" />
-            <AnimatedCounter value={totalSubjects} suffix="" prefix="" duration={2000} className="text-center" />
-            <AnimatedCounter value={2} suffix="" prefix="" duration={2200} className="text-center" />
+            <AnimatedCounter value={14} suffix="" prefix="" duration={2000} className="text-center" />
+            <AnimatedCounter value={1} suffix="" prefix="" duration={2200} className="text-center" />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 text-center text-sm text-gray-500">
             <span>Programs</span>
