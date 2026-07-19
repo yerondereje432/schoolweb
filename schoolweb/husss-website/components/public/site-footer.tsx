@@ -23,7 +23,7 @@ export default function SiteFooter({
 
   const socials = [
     { url: contact?.facebook_url, icon: Share2, label: "Facebook" },
-    { url: contact?.telegram_url, icon: Send, label: "Telegram" },
+    { url: "https://t.me/haramayanonboarding2023", icon: Send, label: "Telegram" },
     { url: contact?.youtube_url, icon: Share2, label: "YouTube" },
     { url: contact?.tiktok_url, icon: Music2, label: "TikTok" },
     { url: contact?.x_url, icon: Share2, label: "X" },
