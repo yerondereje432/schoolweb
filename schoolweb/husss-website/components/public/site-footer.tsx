@@ -94,7 +94,7 @@ export default function SiteFooter({
       </div>
 
       <div className="border-t border-white/10 py-5 text-center text-xs text-white/35 tracking-wide">
-        Built for {schoolNameEn}
+       © 2026 {schoolNameEn}. All rights reserved.
       </div>
     </footer>
   );
