@@ -66,7 +66,7 @@ export default function SiteHeader({
               </span>
             )}
             <span className="ml-auto tracking-wide">
-              Grade 9–12 · Haramaya, Ethiopia
+              Grade 9–12 · Haramaya University, Ethiopia
             </span>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function SiteHeader({
                   {schoolShortName}
                 </p>
                 <p className="eyebrow text-[0.62rem] text-husss-green-700/80 mt-0.5">
-                  Est. Excellence · HUSSS
+                  Est. Excellence · HUSNBSS
                 </p>
               </div>
             </Link>
