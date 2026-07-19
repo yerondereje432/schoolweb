@@ -27,7 +27,7 @@ export default async function ContactPage() {
         icon={<Mail size={28} />}
         eyebrow="Get in Touch"
         title="Contact Us"
-        subtitle="We'd love to hear from you — reach out with any questions."
+        subtitle="We'd love to hear from you. Reach out with any questions."
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
