@@ -99,11 +99,13 @@ export default async function AboutPage() {
             <AnimatedCounter value={9} suffix="–12" prefix="" duration={1500} className="text-center" />
             <AnimatedCounter value={6} suffix="+" prefix="" duration={1800} className="text-center" />
             <AnimatedCounter value={100} suffix="%" prefix="" duration={2000} className="text-center" />
+            <AnimatedCounter value={250} suffix="+" prefix="" duration={2000} className="text-center" />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4 text-center text-sm text-gray-500">
             <span>Grades Offered</span>
             <span>Years of Excellence</span>
             <span>EUEE Pass Rate</span>
+            <span>Enrolled Students</span>
           </div>
         </ScrollReveal3D>
       </div>
