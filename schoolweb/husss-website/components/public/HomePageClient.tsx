@@ -8,6 +8,11 @@ import {
   AnimatedCounter,
   TextReveal,
   GoldenDust,
+  ThreeDBackground,
+  ParallaxCard,
+  CursorGlow,
+  FloatingParticles,
+  GradientText,
 } from "@/components/public/animations";
 
 interface HomePageClientProps {
@@ -52,10 +57,24 @@ export default function HomePageClient({
       {/* Golden dust particles */}
       <GoldenDust count={20} className="opacity-20" />
 
+      {/* Cursor-following ambient glow — subtle premium layer, ignored on touch devices */}
+      <CursorGlow />
+
       {/* ============================================================
-           HERO SECTION - Clean, no 3D background
+           HERO SECTION
+           NOTE: This section previously read "Clean, no 3D background" /
+           "Depth gradients only - no Three.js". That was almost certainly
+           a deliberate performance decision for a school site accessed
+           on mid-range mobile devices. ThreeDBackground is added below
+           per explicit request, but verify the props below match your
+           actual component — they're a best-guess shape, not confirmed.
            ============================================================ */}
       <section className="relative bg-husss-green-950 text-white overflow-hidden min-h-screen flex items-center">
+        {/* 3D background layer — sits behind hero image + gradients */}
+        <div className="absolute inset-0 pointer-events-none">
+          <ThreeDBackground className="opacity-40" />
+        </div>
+
         {/* Hero image from CMS */}
         <div className="absolute inset-0 opacity-[0.12] pointer-events-none">
           {hero?.image_url && (
@@ -63,9 +82,12 @@ export default function HomePageClient({
           )}
         </div>
 
-        {/* Depth gradients only - no Three.js */}
+        {/* Depth gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-husss-green-950/50 via-husss-green-900/20 to-husss-green-950/90" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_var(--color-husss-gold-500)_0%,_transparent_50%)] opacity-5" />
+
+        {/* Sparse ambient particle layer, distinct from the GoldenDust page-level layer */}
+        <FloatingParticles count={12} className="opacity-15" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
           <div className="grid lg:grid-cols-[1fr_1fr] gap-16 items-center">
@@ -164,7 +186,7 @@ export default function HomePageClient({
         </div>
       </section>
       {/* ============================================================
-           FEATURED ACCOMPLISHMENTS - Regular cards
+           FEATURED ACCOMPLISHMENTS - ParallaxCard tilt-on-hover depth
            ============================================================ */}
       {featuredAccomplishments && featuredAccomplishments.length > 0 && (
         <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -184,22 +206,24 @@ export default function HomePageClient({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {featuredAccomplishments.map((item, i) => (
                 <ScrollReveal3D key={item.id} type="slide-up-3d" delay={i * 100}>
-                  <Link href="/accomplishments" className="block">
-                    <div className="card-hairline overflow-hidden h-full transition-shadow hover:shadow-lg hover:border-husss-gold-300 border-husss-green-100">
-                      <div className="aspect-video bg-husss-green-50 relative overflow-hidden">
-                        {item.image_url && <img src={item.image_url} alt="" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />}
-                        <div className="absolute inset-0 bg-gradient-to-t from-husss-green-950/70 via-transparent to-transparent" />
-                        <div className="absolute top-4 left-4 right-4 flex justify-between">
-                          <span className="text-xs font-medium text-husss-gold-400 bg-husss-green-950/80 backdrop-blur-sm px-3 py-1 rounded-full">Recognition</span>
-                          {item.stat_value && <AnimatedCounter value={item.stat_value} duration={1200} className="font-display text-2xl font-bold text-husss-gold-400" />}
+                  <ParallaxCard className="h-full">
+                    <Link href="/accomplishments" className="block h-full">
+                      <div className="card-hairline overflow-hidden h-full transition-shadow hover:shadow-lg hover:border-husss-gold-300 border-husss-green-100">
+                        <div className="aspect-video bg-husss-green-50 relative overflow-hidden">
+                          {item.image_url && <img src={item.image_url} alt="" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />}
+                          <div className="absolute inset-0 bg-gradient-to-t from-husss-green-950/70 via-transparent to-transparent" />
+                          <div className="absolute top-4 left-4 right-4 flex justify-between">
+                            <span className="text-xs font-medium text-husss-gold-400 bg-husss-green-950/80 backdrop-blur-sm px-3 py-1 rounded-full">Recognition</span>
+                            {item.stat_value && <AnimatedCounter value={item.stat_value} duration={1200} className="font-display text-2xl font-bold text-husss-gold-400" />}
+                          </div>
+                        </div>
+                        <div className="p-6">
+                          <p className="font-medium text-husss-green-950 text-lg">{item.title_en}</p>
+                          {item.description_en && <p className="text-sm text-muted mt-2 line-clamp-3 leading-relaxed">{item.description_en}</p>}
                         </div>
                       </div>
-                      <div className="p-6">
-                        <p className="font-medium text-husss-green-950 text-lg">{item.title_en}</p>
-                        {item.description_en && <p className="text-sm text-muted mt-2 line-clamp-3 leading-relaxed">{item.description_en}</p>}
-                      </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </ParallaxCard>
                 </ScrollReveal3D>
               ))}
             </div>
@@ -208,7 +232,7 @@ export default function HomePageClient({
       )}
 
       {/* ============================================================
-           LATEST NEWS - Regular cards
+           LATEST NEWS - ParallaxCard tilt-on-hover depth
            ============================================================ */}
       {latestNews && latestNews.length > 0 && (
         <section className="relative bg-husss-green-50 py-24">
@@ -228,29 +252,31 @@ export default function HomePageClient({
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {latestNews.map((post, i) => (
                     <ScrollReveal3D key={post.id} type="slide-up-3d" delay={i * 100}>
-                      <Link href={`/news/${post.slug}`} className="block">
-                        <div className="card-hairline overflow-hidden h-full bg-white transition-shadow hover:shadow-lg hover:border-husss-gold-300 border-husss-green-100">
-                          <div className="aspect-video bg-gray-100 relative overflow-hidden">
-                            {post.cover_image_url && <img src={post.cover_image_url} alt="" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />}
-                            <div className="absolute inset-0 bg-gradient-to-t from-husss-green-950/60 via-transparent to-transparent" />
-                          </div>
-                          <div className="p-6">
-                            <div className="flex items-center gap-2 text-xs text-white/70 mb-3">
-                              <span>{post.published_at ? new Date(post.published_at).toLocaleDateString() : ""}</span>
-                              {post.news_categories && (
-                                <>
-                                  <span>·</span>
-                                  <span className="text-husss-gold-400 font-medium px-2 py-0.5 bg-husss-green-950/80 backdrop-blur-sm rounded-full">
-                                    {(post.news_categories as { name_en: string }).name_en}
-                                  </span>
-                                </>
-                              )}
+                      <ParallaxCard className="h-full">
+                        <Link href={`/news/${post.slug}`} className="block h-full">
+                          <div className="card-hairline overflow-hidden h-full bg-white transition-shadow hover:shadow-lg hover:border-husss-gold-300 border-husss-green-100">
+                            <div className="aspect-video bg-gray-100 relative overflow-hidden">
+                              {post.cover_image_url && <img src={post.cover_image_url} alt="" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />}
+                              <div className="absolute inset-0 bg-gradient-to-t from-husss-green-950/60 via-transparent to-transparent" />
                             </div>
-                            <p className="font-semibold text-husss-green-950 leading-snug text-lg">{post.title_en}</p>
-                            {post.excerpt_en && <p className="text-sm text-white/60 mt-3 line-clamp-2 leading-relaxed">{post.excerpt_en}</p>}
+                            <div className="p-6">
+                              <div className="flex items-center gap-2 text-xs text-white/70 mb-3">
+                                <span>{post.published_at ? new Date(post.published_at).toLocaleDateString() : ""}</span>
+                                {post.news_categories && (
+                                  <>
+                                    <span>·</span>
+                                    <span className="text-husss-gold-400 font-medium px-2 py-0.5 bg-husss-green-950/80 backdrop-blur-sm rounded-full">
+                                      {(post.news_categories as { name_en: string }).name_en}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+                              <p className="font-semibold text-husss-green-950 leading-snug text-lg">{post.title_en}</p>
+                              {post.excerpt_en && <p className="text-sm text-white/60 mt-3 line-clamp-2 leading-relaxed">{post.excerpt_en}</p>}
+                            </div>
                           </div>
-                        </div>
-                      </Link>
+                        </Link>
+                      </ParallaxCard>
                     </ScrollReveal3D>
                   ))}
                 </div>
@@ -261,7 +287,7 @@ export default function HomePageClient({
       )}
 
       {/* ============================================================
-           CTA SECTION - PREMIUM GOLD BUTTONS
+           CTA SECTION - PREMIUM GOLD BUTTONS + GradientText headline
            ============================================================ */}
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 text-center">
         {/* Gold accent line */}
@@ -269,9 +295,11 @@ export default function HomePageClient({
         
         <StaggeredReveal staggerDelay={120}>
           <ScrollReveal3D type="slide-up-3d">
-            <TextReveal type="words" stagger={40} as="h2" className="text-2xl md:text-3xl lg:text-4xl text-husss-green-950 mb-4">
-              Learn more about HUSNBSS
-            </TextReveal>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl mb-4">
+              <GradientText className="inline-block">
+                Learn more about HUSNBSS
+              </GradientText>
+            </h2>
           </ScrollReveal3D>
 
           <ScrollReveal3D type="fade-up" delay={200}>
