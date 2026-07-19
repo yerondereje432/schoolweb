@@ -36,7 +36,7 @@ export default async function AccomplishmentsPage() {
       <PageHero
         icon={<Trophy size={28} />}
         eyebrow="Recognition"
-        title="Accomplishments"
+        title="Achievements"
         subtitle="Exam results, awards, and recognitions that reflect HUSSS's track record of excellence."
       />
 
