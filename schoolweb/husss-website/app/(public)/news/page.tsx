@@ -27,7 +27,7 @@ export default async function NewsListPage() {
         icon={<Newspaper size={28} />}
         eyebrow="Bulletin"
         title="News & Announcements"
-        subtitle="Stay up to date with what's happening at HUSSS."
+        subtitle="Stay up to date with what's happening at HUSNBSS."
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 relative z-10">
