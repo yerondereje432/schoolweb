@@ -37,7 +37,7 @@ export default async function AccomplishmentsPage() {
         icon={<Trophy size={28} />}
         eyebrow="Recognition"
         title="Achievements"
-        subtitle="Exam results, awards, and recognitions that reflect HUSSS's track record of excellence."
+        subtitle="Exam results, awards, and recognitions that reflect HUSNBSS's track record of excellence."
       />
 
       {/* Top students by year */}
