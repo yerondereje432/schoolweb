@@ -25,7 +25,7 @@ export default async function StaffPage() {
         icon={<Users size={28} />}
         eyebrow="Our People"
         title="Staff & Leadership"
-        subtitle="The educators and administrators guiding HUSSS students toward excellence."
+        subtitle="The educators and administrators guiding HUSNBSS students toward excellence."
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 relative z-10">
