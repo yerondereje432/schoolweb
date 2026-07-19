@@ -54,8 +54,8 @@ export default async function AccomplishmentsPage() {
                 </div>
                 <div className="grid grid-cols-3 gap-6 mt-6">
                   <AnimatedCounter value={totalTopStudents} suffix="" duration={1500} className="text-center" />
-                  <AnimatedCounter value={years.length} suffix="" prefix="" duration={1800} className="text-center" />
-                  <AnimatedCounter value={latestYear} suffix="" prefix="" duration={2000} className="text-center" />
+                  <AnimatedCounter value={1} suffix="" prefix="" duration={1800} className="text-center" />
+                  <AnimatedCounter value={2025} suffix="" prefix="" duration={2000} className="text-center" />
                 </div>
                 <div className="grid grid-cols-3 gap-6 mt-2 text-center text-sm text-gray-500">
                   <span>Total Top Students</span>
