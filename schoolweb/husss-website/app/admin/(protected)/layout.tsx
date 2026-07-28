@@ -1,5 +1,7 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import { requireAdmin } from "@/lib/auth";
 import { logoutAction } from "@/lib/actions/auth";
 import {
   LayoutDashboard,
@@ -17,6 +19,8 @@ import {
   LogOut,
   ShieldAlert,
   KeyRound,
+  Menu,
+  X
 } from "lucide-react";
 
 const navGroups = [
@@ -56,22 +60,44 @@ const navGroups = [
   },
 ];
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
+  adminEmail = "admin@example.com", // Pass this via props if using Server Components wrapper
 }: {
   children: React.ReactNode;
+  adminEmail?: string;
 }) {
-  const admin = await requireAdmin();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
-      <aside className="w-64 shrink-0 bg-husss-green-950 text-white flex flex-col">
-        <div className="px-5 py-5 border-b border-white/10">
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
+      
+      {/* Mobile Header (Visible only on small screens) */}
+      <div className="md:hidden flex items-center justify-between bg-husss-green-950 text-white p-4 sticky top-0 z-50">
+        <div>
           <p className="font-semibold text-sm tracking-wide">HUSSS ADMIN</p>
-          <p className="text-xs text-white/50 mt-0.5 truncate">{admin.email}</p>
+        </div>
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-white/80 hover:text-white"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Sidebar Navigation */}
+      <aside className={`
+        ${isMobileMenuOpen ? "flex" : "hidden"} 
+        md:flex 
+        w-full md:w-64 shrink-0 bg-husss-green-950 text-white flex-col
+        fixed md:sticky top-[60px] md:top-0 h-[calc(100vh-60px)] md:h-screen z-40
+      `}>
+        <div className="hidden md:block px-5 py-5 border-b border-white/10">
+          <p className="font-semibold text-sm tracking-wide">HUSSS ADMIN</p>
+          <p className="text-xs text-white/50 mt-0.5 truncate">{adminEmail}</p>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6 pb-24 md:pb-4">
           {navGroups.map((group) => (
             <div key={group.label}>
               <p className="px-2 mb-1.5 text-[11px] uppercase tracking-wider text-white/40 font-medium">
@@ -82,6 +108,7 @@ export default async function AdminLayout({
                   <Link
                     key={item.href}
                     href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
                     className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white transition-colors"
                   >
                     <item.icon size={16} strokeWidth={2} />
@@ -93,7 +120,7 @@ export default async function AdminLayout({
           ))}
         </nav>
 
-        <div className="px-3 py-4 border-t border-white/10">
+        <div className="px-3 py-4 border-t border-white/10 mt-auto bg-husss-green-950">
           <form action={logoutAction}>
             <button className="flex items-center gap-2.5 w-full rounded-lg px-2.5 py-2 text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors">
               <LogOut size={16} />
@@ -103,9 +130,20 @@ export default async function AdminLayout({
         </div>
       </aside>
 
-      <main className="flex-1 min-w-0">
-        <div className="max-w-5xl mx-auto px-6 py-8">{children}</div>
+      {/* Main Content Area */}
+      <main className="flex-1 min-w-0 md:ml-0 overflow-x-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+          {children}
+        </div>
       </main>
+
+      {/* Mobile Overlay Backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 md:hidden top-[60px]"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </div>
   );
 }
